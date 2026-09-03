@@ -1,3 +1,3 @@
 # هجدة
 
-استوديو رقمي — hajdah.com
+استوديو رقمي على [hajdah.com](https://hajdah.com). واحة منتج منفصل على waha.hajdah.com.
