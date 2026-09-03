@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هجدة — استوديو رقمي</title>
+<meta name="description" content="هجدة. نبني في الهدوء ما يظهر في وضح النهار.">
+
+<link rel="canonical" href="https://hajdah.com/">
+<meta property="og:title" content="هجدة — استوديو رقمي">
+<meta property="og:description" content="هجدة. نبني في الهدوء ما يظهر في وضح النهار.">
+<meta property="og:url" content="https://hajdah.com/">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:type" content="website">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C5G87WHJNZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C5G87WHJNZ');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-0: #0A0E14;
+    --bg-1: #12171F;
+    --bg-2: #1A2029;
+    --ink: #E8E6DF;
+    --ink-dim: #9BA2AD;
+    --ink-faint: #5B6470;
+    --gold: #C9A876;
+    --gold-dim: #8A7355;
+    --line: rgba(232,230,223,0.08);
+    --serif: 'Tajawal', sans-serif;
+    --sans: 'IBM Plex Sans Arabic', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg-0);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  ::selection{ background: var(--gold-dim); color: var(--bg-0); }
+
+  a{ color: inherit; text-decoration:none; }
+
+  /* Subtle grain */
+  body::before{
+    content:"";
+    position: fixed;
+    inset:0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed;
+    top:0; right:0; left:0;
+    z-index: 40;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 28px 6%;
+    background: rgba(10, 14, 20, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.3s ease;
+  }
+  .brand{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .brand span{ color: var(--gold); }
+  
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .nav-links{ display:flex; gap: 36px; font-size: 0.92rem; color: var(--ink-dim); }
+  .nav-links a{ position:relative; transition: color .3s; }
+  .nav-links a:hover{ color: var(--ink); }
+  .nav-links a::after{
+    content:""; position:absolute; right:0; bottom:-6px; width:0; height:1px;
+    background: var(--gold); transition: width .35s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  @media (max-width: 720px){ 
+    .menu-btn { display: block; }
+    .nav-links { 
+      display: none; 
+      position: absolute; 
+      top: 100%; 
+      left: 0; 
+      right: 0; 
+      background: var(--bg-1); 
+      flex-direction: column; 
+      padding: 24px 6%; 
+      border-bottom: 1px solid var(--line);
+      gap: 20px;
+    }
+    .nav-links.open { display: flex; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    min-height: 100svh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6%;
+    overflow: hidden;
+  }
+
+  #sky{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+
+  .hero-content{
+    position: relative;
+    z-index: 3;
+    max-width: 920px;
+  }
+
+  .eyebrow-line{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: riseIn 1.2s ease forwards;
+    animation-delay: 0.3s;
+  }
+  .eyebrow-dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px 2px rgba(201,168,118,0.6);
+  }
+  .eyebrow-line span{
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    font-weight: 400;
+  }
+
+  h1{
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 7vw, 5.4rem);
+    line-height: 1.08;
+    color: var(--ink);
+    opacity: 0;
+    animation: riseIn 1.3s ease forwards;
+    animation-delay: 0.5s;
+  }
+
+  .hero-sub{
+    margin-top: 28px;
+    max-width: 560px;
+    font-size: 1.15rem;
+    color: var(--ink-dim);
+    font-weight: 300;
+    opacity: 0;
+    animation: riseIn 1.3s ease forwards;
+    animation-delay: 0.75s;
+  }
+
+  .hero-time{
+    position:absolute;
+    bottom: 48px;
+    right: 6%;
+    z-index: 3;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    opacity: 0;
+    animation: riseIn 1.2s ease forwards;
+    animation-delay: 1.1s;
+  }
+  .hero-time .divider{ width: 28px; height:1px; background: var(--line); }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform: translateY(18px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow-line, h1, .hero-sub, .hero-time{ animation: none !important; opacity:1 !important; }
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 40px;
+    left: 6%;
+    z-index:3;
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim));
+  }
+  .scroll-cue::after{
+    content:"";
+    position:absolute;
+    top:0; left:-2.5px;
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--gold);
+    animation: drip 2.6s ease-in-out infinite;
+  }
+  @keyframes drip{
+    0%{ top:0; opacity:0; }
+    15%{ opacity:1; }
+    85%{ opacity:1; }
+    100%{ top:48px; opacity:0; }
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ position:relative; z-index:2; padding: 140px 6%; }
+  .section-head{ max-width: 680px; margin-bottom: 80px; }
+  .kicker{
+    font-size: 0.85rem;
+    color: var(--gold-dim);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .section-head h2{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .section-head p{
+    margin-top: 20px;
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    font-weight: 300;
+    max-width: 540px;
+  }
+
+  /* ---------- PHILOSOPHY ---------- */
+  .philosophy{
+    background: var(--bg-1);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .phil-grid{
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .phil-grid .label-col{
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    padding-top: 8px;
+  }
+  .phil-grid .statement{
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .phil-grid .statement em{
+    font-style: normal;
+    color: var(--gold);
+  }
+  @media (max-width: 780px){
+    .phil-grid{ grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ---------- WORK ---------- */
+  .work-list{
+    display:flex;
+    flex-direction: column;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .work-item{
+    display:grid;
+    grid-template-columns: 120px 1fr 200px;
+    align-items:center;
+    gap: 32px;
+    padding: 40px 24px;
+    border-top: 1px solid var(--line);
+    transition: background .4s ease, padding-right .4s ease, transform .4s ease;
+    cursor: default;
+  }
+  .work-list .work-item:last-child{ border-bottom: 1px solid var(--line); }
+  .work-item:hover{
+    background: var(--bg-1);
+    padding-right: 40px;
+    transform: translateX(-5px);
+  }
+  .work-tag{
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.01em;
+  }
+  .work-main h3{
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .work-main p{
+    color: var(--ink-dim);
+    font-size: 0.96rem;
+    font-weight: 300;
+    max-width: 460px;
+  }
+  .work-status{
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  .work-status .dot{
+    display:inline-block;
+    width:6px; height:6px; border-radius:50%;
+    background: var(--gold-dim);
+    margin-left: 8px;
+  }
+  .work-status.live .dot{ background: var(--gold); box-shadow: 0 0 8px 1px rgba(201,168,118,0.5); }
+
+  @media (max-width: 780px){
+    .work-item{ grid-template-columns: 1fr; gap: 10px; text-align: right; }
+    .work-item:hover { padding-right: 24px; transform: none; }
+    .work-status{ text-align: right; margin-top: 10px; }
+  }
+
+  /* ---------- APPROACH ---------- */
+  .approach-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+  }
+  .approach-cell{
+    background: var(--bg-0);
+    padding: 48px 36px;
+    transition: background .4s ease;
+  }
+  .approach-cell:hover {
+    background: var(--bg-1);
+  }
+  .approach-cell h4{
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .approach-cell p{
+    font-size: 0.94rem;
+    color: var(--ink-dim);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+  @media (max-width: 780px){
+    .approach-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    text-align: center;
+    padding-bottom: 160px;
+  }
+  .contact h2{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.3;
+  }
+  .contact h2 .gold{ color: var(--gold); }
+  .contact-cta{
+    display:inline-flex;
+    align-items:center;
+    gap: 12px;
+    margin-top: 44px;
+    padding: 16px 34px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 999px;
+    color: var(--ink);
+    font-size: 0.98rem;
+    transition: border-color .3s ease, background .3s ease, transform .3s ease;
+  }
+  .contact-cta:hover{
+    border-color: var(--gold);
+    background: rgba(201,168,118,0.06);
+    transform: translateY(-2px);
+  }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 36px 6%;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    position: relative;
+    z-index: 2;
+  }
+  footer .brand{ font-size: 0.95rem; }
+  @media (max-width: 600px){
+    footer{ flex-direction: column; gap: 12px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">هجدة<span>.</span></div>
+  <button class="menu-btn" aria-label="فتح القائمة">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="M3 12h18M3 6h18M3 18h18"></path>
+    </svg>
+  </button>
+  <div class="nav-links">
+    <a href="#philosophy">الفكرة</a>
+    <a href="#work">الأعمال</a>
+    <a href="#approach">الأسلوب</a>
+    <a href="#contact">تواصل</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg id="sky" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"></svg>
+
+  <div class="hero-content">
+    <div class="eyebrow-line">
+      <span class="eyebrow-dot"></span>
+      <span>استوديو رقمي — الرياض</span>
+    </div>
+    <h1>ما يُبنى في هزيع الليل،<br>يظهر في وضح النهار.</h1>
+    <p class="hero-sub">هجدة استوديو نبني فيه منتجات وأدوات رقمية بعناية وصبر، بعيداً عن الضجة — من الفكرة الأولى إلى الإطلاق.</p>
+  </div>
+
+  <div class="hero-time">
+    <span>الثلث الأخير هو أصفى وقت للتفكير</span>
+    <span class="divider"></span>
+    <span>هذا ما بنينا عليه اسمنا</span>
+  </div>
+
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="philosophy" id="philosophy">
+  <div class="phil-grid">
+    <div class="label-col">الفكرة</div>
+    <div class="statement">
+      "الهجدة" هي ساعة الليل التي يغرق فيها الناس بالنوم، وتبقى أنت مستيقظاً. <em>لا ضجيج، لا مقاطعة</em> — فقط أنت والفكرة. هذا هو المكان الذي نعمل منه: نأخذ الوقت الذي يحتاجه العمل الجيد <em>ليكتمل بصمت</em>، قبل أن نطلقه للعالم.
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-head">
+    <div class="kicker">الأعمال</div>
+    <h2>أشياء نبنيها ونعتني بها</h2>
+    <p>كل مشروع يبدأ من مشكلة حقيقية نعيشها، ويُبنى بمعايير نرضى نحن عنها أولاً.</p>
+  </div>
+
+  <div class="work-list">
+    <div class="work-item">
+      <div class="work-tag">تطبيق</div>
+      <div class="work-main">
+        <h3>تهجد</h3>
+        <p>تطبيق شامل لمواقيت الصلاة، اتجاه القبلة، قراءة القرآن، والأذكار — بخمس هويات بصرية مختلفة.</p>
+      </div>
+      <div class="work-status live">قيد التطوير النشط <span class="dot"></span></div>
+    </div>
+    <div class="work-item">
+      <div class="work-tag">أدوات</div>
+      <div class="work-main">
+        <h3>أدوات السوق</h3>
+        <p>منصة لمتابعة الأسواق المالية وتحليل الفرص، مبنية لمن يتداول بجدية لا بالصدفة.</p>
+      </div>
+      <div class="work-status">قيد الإعداد <span class="dot"></span></div>
+    </div>
+    <div class="work-item">
+      <div class="work-tag">تجربة</div>
+      <div class="work-main">
+        <h3>محاكاة العائلة</h3>
+        <p>تجربة محاكاة حياة عائلية خليجية، تحمل تفاصيل ثقافية حقيقية بدل القوالب الجاهزة.</p>
+      </div>
+      <div class="work-status">في التصميم <span class="dot"></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="section-head">
+    <div class="kicker">الأسلوب</div>
+    <h2>كيف نعمل</h2>
+  </div>
+  <div class="approach-grid">
+    <div class="approach-cell">
+      <h4>نبدأ بسؤال، لا بحل</h4>
+      <p>قبل أي كود، نسأل: هل هذه المشكلة حقيقية؟ ولمن؟ المنتجات التي تدوم تبدأ من إجابة صادقة، لا من فكرة جذابة.</p>
+    </div>
+    <div class="approach-cell">
+      <h4>التفاصيل غير المرئية تُبنى أولاً</h4>
+      <p>السرعة، الاستقرار، ودقة البيانات لا تُرى، لكنها الفرق بين أداة يثق بها الناس وأخرى ينسونها بعد يوم.</p>
+    </div>
+    <div class="approach-cell">
+      <h4>نطلق حين يكون جاهزاً، لا حين يكون موعداً</h4>
+      <p>لا جداول تسويقية تُملي علينا التاريخ. المنتج يخرج حين نستخدمه نحن يومياً بارتياح تام.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>عندك فكرة تحتاج <span class="gold">ليلة هدوء</span> لتُبنى؟</h2>
+  <a href="mailto:hello@alhajda.com" class="contact-cta">
+    راسلنا على hello@alhajda.com
+  </a>
+</section>
+
+<footer>
+  <div class="brand">هجدة<span style="color: var(--gold)">.</span></div>
+  <div>© 2026 هجدة. جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+  // القائمة التفاعلية للجوال
+  const menuBtn = document.querySelector('.menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // إغلاق القائمة عند النقر على أي رابط (للجوال)
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // تأثيرات السماء والخلفية
+  (function(){
+    const svg = document.getElementById('sky');
+    const ns = "http://www.w3.org/2000/svg";
+    const W = 1600, H = 900;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+    const defs = document.createElementNS(ns, 'defs');
+    defs.innerHTML = `
+      <radialGradient id="dawnGlow" cx="50%" cy="100%" r="75%">
+        <stop offset="0%" stop-color="#C9A876" stop-opacity="0.10"/>
+        <stop offset="45%" stop-color="#8A7355" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#0A0E14" stop-opacity="0"/>
+      </radialGradient>
+    `;
+    svg.appendChild(defs);
+
+    const glow = document.createElementNS(ns, 'rect');
+    glow.setAttribute('x', 0); glow.setAttribute('y', 0);
+    glow.setAttribute('width', W); glow.setAttribute('height', H);
+    glow.setAttribute('fill', 'url(#dawnGlow)');
+    svg.appendChild(glow);
+
+    const starCount = 90;
+    for(let i=0;i<starCount;i++){
+      const x = Math.random()*W;
+      const y = Math.random()*H*0.75;
+      const r = Math.random()*1.3 + 0.3;
+      const baseOpacity = Math.random()*0.5 + 0.15;
+      const c = document.createElementNS(ns,'circle');
+      c.setAttribute('cx', x);
+      c.setAttribute('cy', y);
+      c.setAttribute('r', r);
+      c.setAttribute('fill', '#E8E6DF');
+      c.setAttribute('opacity', baseOpacity);
+      svg.appendChild(c);
+
+      if(Math.random() < 0.25){
+        const dur = (Math.random()*6 + 5).toFixed(2);
+        const anim = document.createElementNS(ns,'animate');
+        anim.setAttribute('attributeName','opacity');
+        anim.setAttribute('values', `${baseOpacity};${baseOpacity*0.2};${baseOpacity}`);
+        anim.setAttribute('dur', `${dur}s`);
+        anim.setAttribute('repeatCount','indefinite');
+        c.appendChild(anim);
+      }
+    }
+
+    for(let i=0;i<2;i++){
+      const y = Math.random()*H*0.4 + 40;
+      const line = document.createElementNS(ns,'line');
+      line.setAttribute('x1', -50);
+      line.setAttribute('y1', y);
+      line.setAttribute('x2', 10);
+      line.setAttribute('y2', y+30);
+      line.setAttribute('stroke', '#C9A876');
+      line.setAttribute('stroke-width', 1);
+      line.setAttribute('opacity', 0);
+      svg.appendChild(line);
+
+      const animX1 = document.createElementNS(ns,'animate');
+      animX1.setAttribute('attributeName','x1');
+      animX1.setAttribute('from', -50); animX1.setAttribute('to', W+50);
+      animX1.setAttribute('dur','3.5s');
+      animX1.setAttribute('begin', `${6 + i*11}s`);
+      animX1.setAttribute('repeatCount', 'indefinite');
+      animX1.setAttribute('additive', 'sum');
+
+      const animX2 = document.createElementNS(ns,'animate');
+      animX2.setAttribute('attributeName','x2');
+      animX2.setAttribute('from', -50+60); animX2.setAttribute('to', W+50+60);
+      animX2.setAttribute('dur','3.5s');
+      animX2.setAttribute('begin', `${6 + i*11}s`);
+      animX2.setAttribute('repeatCount', 'indefinite');
+
+      const animOpacity = document.createElementNS(ns,'animate');
+      animOpacity.setAttribute('attributeName','opacity');
+      animOpacity.setAttribute('values','0;0;0.5;0;0');
+      animOpacity.setAttribute('keyTimes','0;0.4;0.5;0.6;1');
+      animOpacity.setAttribute('dur','20s');
+      animOpacity.setAttribute('begin', `${i*9}s`);
+      animOpacity.setAttribute('repeatCount', 'indefinite');
+
+      line.appendChild(animX1);
+      line.appendChild(animX2);
+      line.appendChild(animOpacity);
+    }
+  })();
+</script>
+
+</body>
+</html>
