@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hajdah.com/sitemap.xml
