@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)\.(ico|png|svg)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/og-image.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" },
+        { "key": "Content-Type", "value": "image/png" }
+      ]
+    }
+  ]
+}
